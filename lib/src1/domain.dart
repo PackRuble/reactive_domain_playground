@@ -18,6 +18,11 @@ class SettingsModel {
       themeColor: themeColor ?? this.themeColor,
     );
   }
+
+  @override
+  String toString() {
+    return 'SettingsModel{themeMode: $themeMode, themeColor: $themeColor}';
+  }
 }
 
 class SettingsNotifier extends AutoDisposeNotifier<SettingsModel> {
