@@ -56,30 +56,16 @@ class _ThemeColorSelector extends ConsumerWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        // FloatingActionButton(
-        //   onPressed: () async {
-        //     int index =
-        //         colors.indexWhere((element) => element.value == color.value);
-        //
-        //     return ref
-        //         .read(SettingsNotifier.instance.notifier)
-        //         .changeColorTheme(colors[++index % colors.length]);
-        //   },
-        //   child: Icon(
-        //     color: color,
-        //     Icons.circle_rounded,
-        //   ),
-        // ),
-        CyclicSelectorWidget(
+        CyclicSelectorButton(
           items: themeModes.keys.toList(),
-          initialItem: themeMode,
+          current: themeMode,
           onNext: ref.read(SettingsNotifier.instance.notifier).changeThemeMode,
           child: Icon(themeModes[themeMode]),
         ),
-        const SizedBox(),
-        CyclicSelectorWidget(
+        const SizedBox(height: 16.0),
+        CyclicSelectorButton(
           items: colors,
-          initialItem: color,
+          current: color,
           onNext: ref.read(SettingsNotifier.instance.notifier).changeColorTheme,
           child: Icon(
             color: color,
@@ -91,36 +77,30 @@ class _ThemeColorSelector extends ConsumerWidget {
   }
 }
 
-class CyclicSelectorWidget<T> extends StatefulWidget {
-  const CyclicSelectorWidget({
+class CyclicSelectorButton<T> extends StatelessWidget {
+  const CyclicSelectorButton({
     super.key,
     required this.items,
     required this.onNext,
-    required this.initialItem,
+    required this.current,
     required this.child,
   });
 
-  final T initialItem;
+  final T current;
   final List<T> items;
   final Function(T) onNext;
   final Widget child;
 
-  @override
-  State<CyclicSelectorWidget<T>> createState() =>
-      _CyclicSelectorWidgetState<T>();
-}
-
-class _CyclicSelectorWidgetState<T> extends State<CyclicSelectorWidget<T>> {
-  late int _index = widget.items.indexWhere((el) => widget.initialItem == el);
-
-  void _onNext() =>
-      widget.onNext.call(widget.items[++_index % widget.items.length]);
+  void _onNext() => onNext.call(
+        items[(items.indexWhere((el) => current == el) + 1) % items.length],
+      );
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
+      heroTag: '$current',
       onPressed: _onNext,
-      child: widget.child,
+      child: child,
     );
   }
 }
