@@ -2,6 +2,8 @@ import 'package:cardoteka/cardoteka.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'src1/ui.dart';
+
 Future<void> main() async {
   await Cardoteka.init();
   runApp(const ProviderScope(child: MyApp()));
@@ -37,10 +39,14 @@ class MyHomePage extends StatelessWidget {
       body: ListView(
         children: [
           ListTile(
-            title: Text('Арихтектура1'),
-            subtitle: Text('Описание этой архитектуры'),
-            onTap: () {},
-            trailing: Icon(Icons.chevron_right_rounded),
+            title: const Text('Архитектура1'),
+            subtitle: const Text('Описание этой архитектуры'),
+            onTap: () async => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const SRC1Page(),
+              ),
+            ),
+            trailing: const Icon(Icons.chevron_right_rounded),
           ),
         ],
       ),
