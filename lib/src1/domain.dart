@@ -21,7 +21,7 @@ class SettingsModel {
 
   @override
   String toString() {
-    return 'SettingsModel{themeMode: $themeMode, themeColor: $themeColor}';
+    return '{$themeMode, ${themeColor.value}}';
   }
 }
 

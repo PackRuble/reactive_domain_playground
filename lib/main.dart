@@ -1,4 +1,5 @@
 import 'package:cardoteka/cardoteka.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,9 +19,17 @@ class MyApp extends StatelessWidget {
       title: 'Architecture styles with Riverpod',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.grey),
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey),
         useMaterial3: true,
       ),
+      builder: (context, child) {
+        return ScrollConfiguration(
+          behavior: ScrollConfiguration.of(context).copyWith(
+            dragDevices: PointerDeviceKind.values.toSet(),
+          ),
+          child: child!,
+        );
+      },
       home: const MyHomePage(),
     );
   }
