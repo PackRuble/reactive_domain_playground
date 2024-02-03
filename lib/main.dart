@@ -2,8 +2,10 @@ import 'package:cardoteka/cardoteka.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_arch_app/features/feature_1.dart';
 
 import 'domain/riverpod_logger.dart';
+import 'home/home_page.dart';
 import 'src1/ui.dart';
 
 Future<void> main() async {
@@ -53,7 +55,7 @@ class MyHomePage extends StatelessWidget {
             subtitle: const Text('Описание этой архитектуры'),
             onTap: () async => Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => const SRC1Page(),
+                builder: (context) => const Feature1(),
               ),
             ),
             trailing: const Icon(Icons.chevron_right_rounded),
@@ -63,3 +65,6 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
+
+
+
