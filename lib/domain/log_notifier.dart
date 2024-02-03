@@ -8,7 +8,7 @@ class LogNotifier extends AutoDisposeNotifier<List<String>> {
 
   @override
   List<String> build() {
-    log('$LogNotifier activated');
+    log('[P] $LogNotifier activated');
 
     final subscription = _controller.stream.listen((message) {
       state = [...state, message];
@@ -25,6 +25,8 @@ class LogNotifier extends AutoDisposeNotifier<List<String>> {
     final record = message.toString();
     _controller.add(record);
     _logs.add(record);
+    // ignore: avoid_print
+    print(record);
   }
 
   static void clear() {

@@ -2,7 +2,6 @@ import 'package:cardoteka/cardoteka.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_arch_app/domain/log_notifier.dart';
 
 import 'domain/riverpod_logger.dart';
 import 'src1/ui.dart';

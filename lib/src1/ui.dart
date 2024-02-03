@@ -14,12 +14,6 @@ class SRC1Page extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final settingsModel = ref.watch(SettingsNotifier.instance);
 
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   ref
-    //       .read(LogNotifier.instance.notifier)
-    //       .l('[W]: $SRC1Page build with $settingsModel');
-    // });
-
     xlog('[W]: $SRC1Page build with $settingsModel');
 
     return Theme(
@@ -43,7 +37,7 @@ class SRC1Page extends ConsumerWidget {
             appBar: AppBar(
               backgroundColor: theme.colorScheme.secondary,
               foregroundColor: theme.colorScheme.onSecondary,
-              title: Text('${settingsModel.themeMode.name} mode'),
+              title: Text('<${settingsModel.themeMode.name}> mode'),
               titleTextStyle: textTheme.headlineSmall!.copyWith(
                 color: theme.colorScheme.onSecondary,
               ),
@@ -77,6 +71,7 @@ class ListViewBody extends ConsumerStatefulWidget {
 
 class _ListViewBodyState extends ConsumerState<ListViewBody> {
   final _scrollController = ScrollController();
+  int lastIndex = 0;
 
   @override
   void dispose() {
@@ -89,10 +84,13 @@ class _ListViewBodyState extends ConsumerState<ListViewBody> {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    final logs = ref.watch(LogNotifier.instance);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      lastIndex = logs.length - 1;
       if (_scrollController.hasClients) {
         // ignore: discarded_futures
-        _scrollController.animateTo(
+        await _scrollController.animateTo(
           _scrollController.position.maxScrollExtent,
           curve: Curves.easeOut,
           duration: const Duration(milliseconds: 500),
@@ -100,21 +98,22 @@ class _ListViewBodyState extends ConsumerState<ListViewBody> {
       }
     });
 
-    final logs = ref.watch(LogNotifier.instance);
     return ListView.builder(
       controller: _scrollController,
       itemCount: logs.length,
       itemBuilder: (context, index) {
         final tile = ListTile(
-          leading: Text((index).toString()),
-          title: Text(logs[index]),
-          titleTextStyle: textTheme.bodySmall!.copyWith(
-            color: theme.colorScheme.onInverseSurface,
-          ),
-          leadingAndTrailingTextStyle: textTheme.bodySmall!.copyWith(
-            color: theme.colorScheme.onInverseSurface,
-          ),
-        );
+              leading: Text((index).toString()),
+              title: Text(logs[index]),
+              titleTextStyle: textTheme.bodySmall!.copyWith(
+                color: theme.colorScheme.onInverseSurface,
+              ),
+              leadingAndTrailingTextStyle: textTheme.bodySmall!.copyWith(
+                color: theme.colorScheme.onInverseSurface,
+              ),
+              tileColor: index >= lastIndex ? theme.colorScheme.error : null,
+            );
+
         if (index == logs.length - 1) {
           return Column(
             children: [
@@ -152,12 +151,6 @@ class _SettingsSelectors extends StatelessWidget {
               SettingsNotifier.instance.select((value) => value.themeMode),
             );
 
-            // WidgetsBinding.instance.addPostFrameCallback((_) {
-            //   ref
-            //       .watch(LogNotifier.instance.notifier)
-            //       .l('[W]: ThemeModeSelector build with $themeMode');
-            // });
-
             xlog('[W]: ThemeModeSelector build with $themeMode');
 
             return CyclicSelectorButton(
@@ -175,12 +168,6 @@ class _SettingsSelectors extends StatelessWidget {
             final color = ref.watch(
               SettingsNotifier.instance.select((value) => value.themeColor),
             );
-
-            // WidgetsBinding.instance.addPostFrameCallback((_) {
-            //   ref
-            //       .watch(LogNotifier.instance.notifier)
-            //       .l('[W]: ColorSelector build with $color');
-            // });
 
             xlog('[W]: ColorSelector build with $color');
 
