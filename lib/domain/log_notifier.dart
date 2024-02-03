@@ -11,7 +11,7 @@ class LogNotifier extends AutoDisposeNotifier<List<String>> {
   List<String> build() => ['logger activated'];
 
   void l(Object? message) {
-    state = [message.toString(), ...state];
+    state = [...state, message.toString()];
   }
 
   void clear() => state = build();

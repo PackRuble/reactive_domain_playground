@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_arch_app/domain/log_notifier.dart';
@@ -15,7 +16,7 @@ class SRC1Page extends ConsumerWidget {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref
-          .watch(LogNotifier.instance.notifier)
+          .read(LogNotifier.instance.notifier)
           .l('[W]: $SRC1Page build with $settingsModel');
     });
 
@@ -46,7 +47,7 @@ class SRC1Page extends ConsumerWidget {
               ),
               actions: [
                 IconButton.filledTonal(
-                  color:  theme.colorScheme.secondary,
+                  color: theme.colorScheme.secondary,
                   onPressed: () =>
                       ref.read(LogNotifier.instance.notifier).clear(),
                   icon: const Icon(Icons.cleaning_services_rounded),
@@ -63,19 +64,45 @@ class SRC1Page extends ConsumerWidget {
   }
 }
 
-class ListViewBody extends ConsumerWidget {
+class ListViewBody extends ConsumerStatefulWidget {
   const ListViewBody({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ListViewBody> createState() => _ListViewBodyState();
+}
+
+class _ListViewBodyState extends ConsumerState<ListViewBody> {
+  final _scrollController = ScrollController();
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scrollController.hasClients) {
+        // ignore: discarded_futures
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          curve: Curves.easeOut,
+          duration: const Duration(milliseconds: 500),
+        );
+      }
+    });
+
     final logs = ref.watch(LogNotifier.instance);
     return ListView.builder(
+      controller: _scrollController,
       itemCount: logs.length,
       itemBuilder: (context, index) {
-        return ListTile(
-          leading: Text((logs.length - 1 - index).toString()),
+        final tile = ListTile(
+          leading: Text((index).toString()),
           title: Text(logs[index]),
           titleTextStyle: textTheme.bodySmall!.copyWith(
             color: theme.colorScheme.onInverseSurface,
@@ -84,6 +111,16 @@ class ListViewBody extends ConsumerWidget {
             color: theme.colorScheme.onInverseSurface,
           ),
         );
+        if (index == logs.length - 1) {
+          return Column(
+            children: [
+              tile,
+              const SizedBox(height: 80),
+            ],
+          );
+        } else {
+          return tile;
+        }
       },
     );
   }
@@ -102,7 +139,7 @@ class _SettingsSelectors extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Consumer(
@@ -126,7 +163,7 @@ class _SettingsSelectors extends StatelessWidget {
             );
           },
         ),
-        const SizedBox(height: 16.0),
+        const SizedBox(width: 16.0),
         Consumer(
           builder: (context, ref, child) {
             final color = ref.watch(
