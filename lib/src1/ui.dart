@@ -14,11 +14,13 @@ class SRC1Page extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final settingsModel = ref.watch(SettingsNotifier.instance);
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref
-          .read(LogNotifier.instance.notifier)
-          .l('[W]: $SRC1Page build with $settingsModel');
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   ref
+    //       .read(LogNotifier.instance.notifier)
+    //       .l('[W]: $SRC1Page build with $settingsModel');
+    // });
+
+    xlog('[W]: $SRC1Page build with $settingsModel');
 
     return Theme(
       data: Theme.of(context).copyWith(
@@ -48,8 +50,10 @@ class SRC1Page extends ConsumerWidget {
               actions: [
                 IconButton.filledTonal(
                   color: theme.colorScheme.secondary,
-                  onPressed: () =>
-                      ref.read(LogNotifier.instance.notifier).clear(),
+                  onPressed: () {
+                    LogNotifier.clear();
+                    ref.invalidate(LogNotifier.instance);
+                  },
                   icon: const Icon(Icons.cleaning_services_rounded),
                 ),
                 const SizedBox(width: 8.0),
@@ -148,11 +152,13 @@ class _SettingsSelectors extends StatelessWidget {
               SettingsNotifier.instance.select((value) => value.themeMode),
             );
 
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              ref
-                  .watch(LogNotifier.instance.notifier)
-                  .l('[W]: ThemeModeSelector build with $themeMode');
-            });
+            // WidgetsBinding.instance.addPostFrameCallback((_) {
+            //   ref
+            //       .watch(LogNotifier.instance.notifier)
+            //       .l('[W]: ThemeModeSelector build with $themeMode');
+            // });
+
+            xlog('[W]: ThemeModeSelector build with $themeMode');
 
             return CyclicSelectorButton(
               items: themeModes.keys.toList(),
@@ -170,11 +176,13 @@ class _SettingsSelectors extends StatelessWidget {
               SettingsNotifier.instance.select((value) => value.themeColor),
             );
 
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              ref
-                  .watch(LogNotifier.instance.notifier)
-                  .l('[W]: ColorSelector build with $color');
-            });
+            // WidgetsBinding.instance.addPostFrameCallback((_) {
+            //   ref
+            //       .watch(LogNotifier.instance.notifier)
+            //       .l('[W]: ColorSelector build with $color');
+            // });
+
+            xlog('[W]: ColorSelector build with $color');
 
             return CyclicSelectorButton(
               items: colors,
