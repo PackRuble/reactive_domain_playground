@@ -5,8 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_arch_app/features/feature_1.dart';
 
 import 'domain/riverpod_logger.dart';
-import 'home/home_page.dart';
-import 'src1/ui.dart';
 
 Future<void> main() async {
   await Cardoteka.init();
