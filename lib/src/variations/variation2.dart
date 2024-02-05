@@ -7,15 +7,15 @@ import '../domain/app_storage.dart';
 // -----------------------------------------------------------------------------
 // domain layer
 
-class SettingsNotifier {
-  SettingsNotifier({required AppStorage appStorage}) : _appStorage = appStorage;
+class Settings {
+  Settings({required AppStorage appStorage}) : _appStorage = appStorage;
 
-  static final instance = Provider.autoDispose<SettingsNotifier>(
+  static final instance = Provider.autoDispose<Settings>(
     (ref) {
       final appStorage = ref.watch(AppStorage.instance);
-      return SettingsNotifier(appStorage: appStorage);
+      return Settings(appStorage: appStorage);
     },
-    name: '$SettingsNotifier',
+    name: '${Settings}Provider',
   );
 
   final AppStorage _appStorage;
@@ -27,7 +27,7 @@ class SettingsNotifier {
       (value) => ref.state = value,
       detacher: ref.onDispose,
     ),
-    name: 'themeMode',
+    name: 'themeModeProvider',
   );
 
   Future<void> changeThemeMode(ThemeMode mode) async =>
@@ -40,7 +40,7 @@ class SettingsNotifier {
       (value) => ref.state = value!,
       detacher: ref.onDispose,
     ),
-    name: 'themeColor',
+    name: 'themeColorProvider',
   );
 
   Future<void> changeThemeColor(Color color) async =>
@@ -59,7 +59,7 @@ class Variation2 extends StatelessWidget {
     return ExperimentPage(
       pageBuilder: (builder) => Consumer(
         builder: (context, ref, child) {
-          final settingNotifier = ref.watch(SettingsNotifier.instance);
+          final settingNotifier = ref.watch(Settings.instance);
           final themeColor = ref.watch(settingNotifier.themeColor);
           final themeMode = ref.watch(settingNotifier.themeMode);
           return builder(
@@ -71,26 +71,26 @@ class Variation2 extends StatelessWidget {
       ),
       themeModeWidget: Consumer(
         builder: (_, ref, __) {
-          final settingNotifier = ref.watch(SettingsNotifier.instance);
+          final settingNotifier = ref.watch(Settings.instance);
           final themeMode = ref.watch(settingNotifier.themeMode);
           // 2. use this
           return ThemeModeSelector(
             mode: themeMode,
             onChange: (ThemeMode mode) async {
-              await ref.read(SettingsNotifier.instance).changeThemeMode(mode);
+              await ref.read(Settings.instance).changeThemeMode(mode);
             },
           );
         },
       ),
       themeColorWidget: Consumer(
         builder: (_, ref, __) {
-          final settingNotifier = ref.watch(SettingsNotifier.instance);
+          final settingNotifier = ref.watch(Settings.instance);
           final themeColor = ref.watch(settingNotifier.themeColor);
           // 3. use this
           return ColorSelector(
             color: themeColor,
             onChange: (Color color) async {
-              await ref.read(SettingsNotifier.instance).changeThemeColor(color);
+              await ref.read(Settings.instance).changeThemeColor(color);
             },
           );
         },

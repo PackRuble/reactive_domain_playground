@@ -7,6 +7,7 @@ class AppStorage extends Cardoteka with WatcherImpl {
 
   static final instance = Provider(
     (ref) => AppStorage(config: AppCards._config),
+    name: '$AppStorage',
   );
 }
 

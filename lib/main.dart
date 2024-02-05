@@ -2,6 +2,7 @@ import 'package:cardoteka/cardoteka.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_arch_app/src/domain/log_notifier.dart';
 
 import 'src/domain/riverpod_logger.dart';
 import 'src/variations/variation1.dart';
@@ -88,9 +89,12 @@ class _VariationTile extends StatelessWidget {
     return ListTile(
       title: Text(name),
       subtitle: Text(description),
-      onTap: () async => Navigator.of(context).push(
-        MaterialPageRoute(builder: pageWhenTap),
-      ),
+      onTap: () async {
+        xlog('-----\n$name\n-----');
+        await Navigator.of(context).push(
+          MaterialPageRoute(builder: pageWhenTap),
+        );
+      },
       trailing: const Icon(Icons.chevron_right_rounded),
     );
   }

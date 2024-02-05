@@ -2,13 +2,15 @@ import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+// ignore_for_file: prefer_function_declarations_over_variables
+
 class LogNotifier extends AutoDisposeNotifier<List<String>> {
   static final instance =
       AutoDisposeNotifierProvider<LogNotifier, List<String>>(LogNotifier.new);
 
   @override
   List<String> build() {
-    log('[P] $LogNotifier activated');
+    slog('$LogNotifier activated');
 
     final subscription = _controller.stream.listen((message) {
       state = [...state, message];
@@ -35,5 +37,5 @@ class LogNotifier extends AutoDisposeNotifier<List<String>> {
 }
 
 const xlog = LogNotifier.log;
-// ignore: prefer_function_declarations_over_variables
 final wlog = (Object? message) => LogNotifier.log('[W]: $message');
+final slog = (Object? message) => LogNotifier.log('[SYS]: $message');
