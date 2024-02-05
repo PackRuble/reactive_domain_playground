@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_arch_app/domain/log_notifier.dart';
 
-import '../src1/domain.dart';
-
 class HomePage extends ConsumerWidget {
   const HomePage({
     super.key,
@@ -30,7 +28,7 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return pageBuilder(
       (context, color, themeMode) {
-        xlog('[W]: $HomePage build with {$themeMode & ${color.value}}');
+        wlog('$HomePage with {$themeMode, ${color.value}}');
 
         return Theme(
           data: Theme.of(context).copyWith(
@@ -108,7 +106,6 @@ class _ListViewBodyState extends ConsumerState<ListViewBody> {
     final logs = ref.watch(LogNotifier.instance);
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-
       if (_scrollController.hasClients) {
         await _scrollController.animateTo(
           _scrollController.position.maxScrollExtent,
@@ -133,14 +130,14 @@ class _ListViewBodyState extends ConsumerState<ListViewBody> {
           leadingAndTrailingTextStyle: textTheme.bodySmall!.copyWith(
             color: theme.colorScheme.onInverseSurface,
           ),
-          tileColor: index >= lastIndex ? theme.colorScheme.error : null,
+          tileColor: index > lastIndex ? theme.colorScheme.error : null,
         );
 
         if (index == logs.length - 1) {
           return Column(
             children: [
               tile,
-              const SizedBox(height: 80),
+              const SizedBox(height: 88),
             ],
           );
         } else {
@@ -187,7 +184,7 @@ class ColorSelector extends CyclicSelectorButton<Color> {
 
   @override
   Widget build(BuildContext context) {
-    xlog('[W]: $ColorSelector build with {${current.value}}');
+    wlog('$ColorSelector with {${current.value}}');
     return super.build(context);
   }
 }
@@ -211,7 +208,7 @@ class ThemeModeSelector extends CyclicSelectorButton<ThemeMode> {
 
   @override
   Widget build(BuildContext context) {
-    xlog('[W]: $ThemeModeSelector build with {$current}');
+    wlog('$ThemeModeSelector with {$current}');
     return super.build(context);
   }
 }

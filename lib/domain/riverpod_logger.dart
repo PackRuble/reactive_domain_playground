@@ -14,7 +14,7 @@ class RiverpodObserver extends ProviderObserver{
       ProviderContainer container,
       ) {
     if (provider.name != null) {
-      onLog('[P] INIT: ${provider.name}'
+      onLog('[D] INIT: ${provider.name}'
           '\n╔══'
           '\n║ value: $value'
           '\n╚══');
@@ -29,7 +29,7 @@ class RiverpodObserver extends ProviderObserver{
       ProviderContainer container,
       ) {
     if (provider.name != null) {
-      onLog('[P] UPD: ${provider.name}'
+      onLog('[D] UPD: ${provider.name}'
           '\n╔══'
           '\n║ previousValue: $previousValue'
           '\n║ newValue: $newValue'
@@ -44,7 +44,7 @@ class RiverpodObserver extends ProviderObserver{
       ProviderContainer container,
       ) {
     if (provider.name != null) {
-      onLog('[P] Dispose: ${provider.name}');
+      onLog('[D] Dispose: ${provider.name}');
     }
   }
 
@@ -55,6 +55,6 @@ class RiverpodObserver extends ProviderObserver{
       StackTrace stackTrace,
       ProviderContainer container,
       ) {
-    onLog('[P] FAIL: ${provider.name}, $error, $stackTrace');
+    onLog('[D] FAIL: ${provider.name}, $error, $stackTrace');
   }
 }

@@ -35,3 +35,5 @@ class LogNotifier extends AutoDisposeNotifier<List<String>> {
 }
 
 const xlog = LogNotifier.log;
+// ignore: prefer_function_declarations_over_variables
+final wlog = (Object? message) => LogNotifier.log('[W]: $message');

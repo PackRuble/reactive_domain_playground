@@ -9,7 +9,8 @@ class Feature1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HomePage( // <-- use this
+    // 1. use this
+    return HomePage(
       pageBuilder: (builder) => Consumer(
         builder: (context, ref, child) {
           final model = ref.watch(SettingsNotifier.instance);
@@ -25,7 +26,8 @@ class Feature1 extends StatelessWidget {
           final mode = ref.watch(
             SettingsNotifier.instance.select((value) => value.themeMode),
           );
-          return ThemeModeSelector( // <-- use this
+          // 2. use this
+          return ThemeModeSelector(
             mode: mode,
             onChange: (ThemeMode mode) async {
               await ref
@@ -40,7 +42,8 @@ class Feature1 extends StatelessWidget {
           final color = ref.watch(
             SettingsNotifier.instance.select((value) => value.themeColor),
           );
-          return ColorSelector( // <-- use this
+          // 3. use this
+          return ColorSelector(
             color: color,
             onChange: (Color color) async {
               await ref
