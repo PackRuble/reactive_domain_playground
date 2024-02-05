@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_arch_app/domain/log_notifier.dart';
+import 'package:riverpod_arch_app/src/domain/log_notifier.dart';
 
-class HomePage extends ConsumerWidget {
-  const HomePage({
+class ExperimentPage extends ConsumerWidget {
+  const ExperimentPage({
     super.key,
     required this.themeColorWidget,
     required this.themeModeWidget,
@@ -28,7 +28,7 @@ class HomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return pageBuilder(
       (context, color, themeMode) {
-        wlog('$HomePage with {$themeMode, ${color.value}}');
+        wlog('$ExperimentPage with {$themeMode, ${color.value}}');
 
         return Theme(
           data: Theme.of(context).copyWith(

@@ -2,9 +2,9 @@ import 'package:cardoteka/cardoteka.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_arch_app/features/feature_1.dart';
 
-import 'domain/riverpod_logger.dart';
+import 'src/domain/riverpod_logger.dart';
+import 'src/variations/variation1.dart';
 
 Future<void> main() async {
   await Cardoteka.init();
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Architecture styles with Riverpod',
+      title: 'Architecture styles',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey),
@@ -31,13 +31,13 @@ class MyApp extends StatelessWidget {
           child: child!,
         );
       },
-      home: const MyHomePage(),
+      home: const HomePage(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +49,11 @@ class MyHomePage extends StatelessWidget {
       body: ListView(
         children: [
           ListTile(
-            title: const Text('Архитектура1'),
+            title: const Text('Variation1'),
             subtitle: const Text('Описание этой архитектуры'),
             onTap: () async => Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => const Feature1(),
+                builder: (context) => const Variation1(),
               ),
             ),
             trailing: const Icon(Icons.chevron_right_rounded),
