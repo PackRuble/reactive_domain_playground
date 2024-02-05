@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_arch_app/src/domain/log_notifier.dart';
 
+import '../domain/app_storage.dart';
+
 class ExperimentPage extends ConsumerWidget {
   const ExperimentPage({
     super.key,
@@ -163,6 +165,16 @@ class SelectorsWidget extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
+        const SizedBox(width: 32.0),
+        Consumer(
+          builder: (context, ref, child) => FloatingActionButton(
+            heroTag: 'invalidate_storage',
+            onPressed: () => ref.invalidate(AppStorage.instance),
+            tooltip: 'Invalidate <$AppStorage> provider. This will update all dependencies.',
+            child: const Icon(Icons.restart_alt_rounded),
+          ),
+        ),
+        const Spacer(),
         themeModeWidget,
         const SizedBox(width: 16.0),
         themeColorWidget,
