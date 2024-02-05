@@ -170,7 +170,8 @@ class SelectorsWidget extends StatelessWidget {
           builder: (context, ref, child) => FloatingActionButton(
             heroTag: 'invalidate_storage',
             onPressed: () => ref.invalidate(AppStorage.instance),
-            tooltip: 'Invalidate <$AppStorage> provider. This will update all dependencies.',
+            tooltip:
+                'Invalidate <$AppStorage> provider. This will update all dependencies.',
             child: const Icon(Icons.restart_alt_rounded),
           ),
         ),

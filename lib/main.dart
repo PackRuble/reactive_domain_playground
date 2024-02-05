@@ -9,6 +9,7 @@ import 'src/variations/variation1.dart';
 import 'src/variations/variation2.dart';
 import 'src/variations/variation3.dart';
 import 'src/variations/variation4.dart';
+import 'src/variations/variation5.dart';
 
 Future<void> main() async {
   await Cardoteka.init();
@@ -72,6 +73,11 @@ class HomePage extends StatelessWidget {
             description: 'Описание4',
             pageWhenTap: (context) => const Variation4(),
           ),
+          _VariationTile(
+            name: 'Variation5',
+            description: 'Описание5',
+            pageWhenTap: (context) => const Variation5(),
+          ),
         ],
       ),
     );
@@ -96,7 +102,7 @@ class _VariationTile extends StatelessWidget {
       title: Text(name),
       subtitle: Text(description),
       onTap: () async {
-        xlog('-----\n$name:$description\n-----');
+        xlog('-----\n$name: $description\n-----');
         await Navigator.of(context).push(
           MaterialPageRoute(builder: pageWhenTap),
         );

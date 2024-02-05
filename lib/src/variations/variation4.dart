@@ -4,15 +4,16 @@ import 'package:riverpod_arch_app/src/domain/log_notifier.dart';
 import 'package:riverpod_arch_app/src/ui/experiment_page.dart';
 
 import '../domain/app_storage.dart';
+import '../domain/mixin_change_notifier_with_logging.dart';
 
 // -----------------------------------------------------------------------------
 // domain layer
 
-class SettingsNotifier with ChangeNotifier {
+class SettingsNotifier with ChangeNotifier, ChangeNotifierLogger {
   SettingsNotifier({
     required AppStorage appStorage,
   }) : _appStorage = appStorage {
-    dlog('$SettingsNotifier init');
+    dlog('INIT: $this');
     themeColor = _appStorage.get(AppCards.themeColor);
     themeMode = _appStorage.get(AppCards.themeMode);
   }
@@ -35,12 +36,6 @@ class SettingsNotifier with ChangeNotifier {
 
     await _appStorage.set<ThemeMode>(AppCards.themeMode, mode);
   }
-
-  @override
-  void dispose() {
-    dlog('$SettingsNotifier disposed');
-    super.dispose();
-  }
 }
 
 // -----------------------------------------------------------------------------
@@ -54,11 +49,11 @@ class Variation4 extends StatefulWidget {
 }
 
 class _Variation4State extends State<Variation4> {
-  late final SettingsNotifier settingsNotifier;
+  late SettingsNotifier settingsNotifier;
 
   @override
   void didChangeDependencies() {
-    // I use this method only because Riverpod is used everywhere for DI
+    // I use this method to get the AppStorage instance only because Riverpod is used everywhere for DI
     final appStorage =
         ProviderScope.containerOf(context).read(AppStorage.instance);
     settingsNotifier = SettingsNotifier(appStorage: appStorage);
