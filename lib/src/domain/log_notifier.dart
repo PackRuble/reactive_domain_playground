@@ -37,5 +37,6 @@ class LogNotifier extends AutoDisposeNotifier<List<String>> {
 }
 
 const xlog = LogNotifier.log;
-final wlog = (Object? message) => LogNotifier.log('[W]: $message');
-final slog = (Object? message) => LogNotifier.log('[SYS]: $message');
+final wlog = (Object? message) => LogNotifier.log('[W]: $message'); // Widget
+final dlog = (Object? message) => LogNotifier.log('[D]: $message'); // Domain
+final slog = (Object? message) => LogNotifier.log('[SYS]: $message'); // System

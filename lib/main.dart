@@ -8,6 +8,7 @@ import 'src/domain/riverpod_logger.dart';
 import 'src/variations/variation1.dart';
 import 'src/variations/variation2.dart';
 import 'src/variations/variation3.dart';
+import 'src/variations/variation4.dart';
 
 Future<void> main() async {
   await Cardoteka.init();
@@ -66,6 +67,11 @@ class HomePage extends StatelessWidget {
             description: 'Описание3',
             pageWhenTap: (context) => const Variation3(),
           ),
+          _VariationTile(
+            name: 'Variation4',
+            description: 'Описание4',
+            pageWhenTap: (context) => const Variation4(),
+          ),
         ],
       ),
     );
@@ -90,7 +96,7 @@ class _VariationTile extends StatelessWidget {
       title: Text(name),
       subtitle: Text(description),
       onTap: () async {
-        xlog('-----\n$name\n-----');
+        xlog('-----\n$name:$description\n-----');
         await Navigator.of(context).push(
           MaterialPageRoute(builder: pageWhenTap),
         );
