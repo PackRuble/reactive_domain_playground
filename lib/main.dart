@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'src/domain/riverpod_logger.dart';
 import 'src/variations/variation1.dart';
 import 'src/variations/variation2.dart';
+import 'src/variations/variation3.dart';
 
 Future<void> main() async {
   await Cardoteka.init();
@@ -58,6 +59,11 @@ class HomePage extends StatelessWidget {
             name: 'Variation2',
             description: 'Описание2',
             pageWhenTap: (context) => const Variation2(),
+          ),
+          _VariationTile(
+            name: 'Variation3',
+            description: 'Описание3',
+            pageWhenTap: (context) => const Variation3(),
           ),
         ],
       ),
