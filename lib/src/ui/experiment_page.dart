@@ -92,7 +92,6 @@ class ListViewBody extends ConsumerStatefulWidget {
 
 class _ListViewBodyState extends ConsumerState<ListViewBody> {
   final _scrollController = ScrollController();
-  late int lastIndex = ref.read(LogNotifier.instance).length;
 
   @override
   void dispose() {
@@ -105,20 +104,24 @@ class _ListViewBodyState extends ConsumerState<ListViewBody> {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
 
-    final logs = ref.watch(LogNotifier.instance);
-
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      if (_scrollController.hasClients) {
-        await _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent,
-          curve: Curves.easeOut,
-          duration: const Duration(milliseconds: 500),
-        );
-
-        lastIndex = logs.length - 1;
-      }
+    ref.listen(LogNotifier.instance, (_, __) {
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        for (var index = 1; index < 3; index++) {
+          // cheat so that skoll can reach the very end
+          await Future.delayed(Duration(milliseconds: 200 * index));
+          if (_scrollController.hasClients) {
+            await _scrollController.animateTo(
+              _scrollController.position.maxScrollExtent,
+              curve: Curves.easeOut,
+              duration: const Duration(milliseconds: 500),
+            );
+          }
+        }
+      });
     });
 
+    final logNotifier = ref.watch(LogNotifier.instance.notifier);
+    final logs = ref.watch(LogNotifier.instance);
     return ListView.builder(
       controller: _scrollController,
       itemCount: logs.length,
@@ -132,7 +135,9 @@ class _ListViewBodyState extends ConsumerState<ListViewBody> {
           leadingAndTrailingTextStyle: textTheme.bodySmall!.copyWith(
             color: theme.colorScheme.onInverseSurface,
           ),
-          tileColor: index > lastIndex ? theme.colorScheme.error : null,
+          tileColor: index > logNotifier.lastUpdatedIndex
+              ? theme.colorScheme.error
+              : null,
         );
 
         if (index == logs.length - 1) {

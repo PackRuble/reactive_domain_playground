@@ -16,8 +16,31 @@ class LogNotifier extends AutoDisposeNotifier<List<String>> {
       state = [...state, message];
     });
 
-    ref.onDispose(subscription.cancel);
+    ref.listenSelf(_updateLastIndex);
+
+    _lastUpdatedIndex = _logs.length;
+    _stopwatch.start();
+
+    ref.onDispose(() {
+      _stopwatch
+        ..stop()
+        ..reset();
+      unawaited(subscription.cancel());
+    });
     return _logs;
+  }
+
+  final _stopwatch = Stopwatch();
+
+  int _lastUpdatedIndex = 0;
+  // ignore: avoid_public_notifier_properties
+  int get lastUpdatedIndex => _lastUpdatedIndex;
+
+  void _updateLastIndex(List<String>? previous, List<String> next) {
+    if (_stopwatch.elapsed > const Duration(milliseconds: 100)) {
+      _lastUpdatedIndex = next.length - 2;
+      _stopwatch.reset();
+    }
   }
 
   static final _controller = StreamController<String>.broadcast();
@@ -27,6 +50,7 @@ class LogNotifier extends AutoDisposeNotifier<List<String>> {
     final record = message.toString();
     _controller.add(record);
     _logs.add(record);
+
     // ignore: avoid_print
     print(record);
   }
