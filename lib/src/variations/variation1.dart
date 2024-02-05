@@ -31,7 +31,7 @@ class SettingsModel {
 
 class SettingsNotifier extends AutoDisposeNotifier<SettingsModel> {
   static final instance =
-  AutoDisposeNotifierProvider<SettingsNotifier, SettingsModel>(
+      AutoDisposeNotifierProvider<SettingsNotifier, SettingsModel>(
     SettingsNotifier.new,
     name: '$SettingsNotifier',
   );
@@ -45,12 +45,12 @@ class SettingsNotifier extends AutoDisposeNotifier<SettingsModel> {
     return SettingsModel(
       themeMode: _appStorage.attach(
         AppCards.themeMode,
-            (value) => state = state.copyWith(themeMode: value),
+        (value) => state = state.copyWith(themeMode: value),
         detacher: ref.onDispose,
       ),
       themeColor: _appStorage.attach(
         AppCards.themeColor,
-            (value) => state = state.copyWith(themeColor: value),
+        (value) => state = state.copyWith(themeColor: value),
         detacher: ref.onDispose,
       ),
     );
@@ -78,8 +78,8 @@ class Variation1 extends StatelessWidget {
           final model = ref.watch(SettingsNotifier.instance);
           return builder(
             context,
-            model.themeColor,
-            model.themeMode,
+            themeColor: model.themeColor,
+            themeMode: model.themeMode,
           );
         },
       ),

@@ -18,22 +18,22 @@ class ExperimentPage extends ConsumerWidget {
 
   final Widget Function(
     Widget Function(
-      BuildContext context,
-      Color color,
-      ThemeMode mode,
-    ) builder,
+      BuildContext context, {
+      required Color themeColor,
+      required ThemeMode themeMode,
+    }) builder,
   ) pageBuilder;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return pageBuilder(
-      (context, color, themeMode) {
-        wlog('$ExperimentPage with {$themeMode, ${color.value}}');
+      (context, {required themeColor, required themeMode}) {
+        wlog('$ExperimentPage with {$themeMode, ${themeColor.value}}');
 
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: ColorScheme.fromSeed(
-              seedColor: color,
+              seedColor: themeColor,
               brightness: switch (themeMode) {
                 ThemeMode.light => Brightness.light,
                 ThemeMode.dark => Brightness.dark,

@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'src/domain/riverpod_logger.dart';
 import 'src/variations/variation1.dart';
+import 'src/variations/variation2.dart';
 
 Future<void> main() async {
   await Cardoteka.init();
@@ -48,15 +49,15 @@ class HomePage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          ListTile(
-            title: const Text('Variation1'),
-            subtitle: const Text('Описание этой архитектуры'),
-            onTap: () async => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const Variation1(),
-              ),
-            ),
-            trailing: const Icon(Icons.chevron_right_rounded),
+          _VariationTile(
+            name: 'Variation1',
+            description: 'Описание этой архитектуры',
+            pageWhenTap: (context) => const Variation1(),
+          ),
+          _VariationTile(
+            name: 'Variation2',
+            description: 'Описание2',
+            pageWhenTap: (context) => const Variation2(),
           ),
         ],
       ),
@@ -64,5 +65,27 @@ class HomePage extends StatelessWidget {
   }
 }
 
+class _VariationTile extends StatelessWidget {
+  const _VariationTile({
+    super.key,
+    required this.name,
+    required this.description,
+    required this.pageWhenTap,
+  });
 
+  final String name;
+  final String description;
+  final WidgetBuilder pageWhenTap;
 
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(name),
+      subtitle: Text(description),
+      onTap: () async => Navigator.of(context).push(
+        MaterialPageRoute(builder: pageWhenTap),
+      ),
+      trailing: const Icon(Icons.chevron_right_rounded),
+    );
+  }
+}
