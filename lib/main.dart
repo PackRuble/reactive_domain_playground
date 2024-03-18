@@ -1,6 +1,7 @@
 import 'package:cardoteka/cardoteka.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:reactive_domain_playground/src/domain/log_notifier.dart';
 
@@ -100,14 +101,20 @@ class _VariationTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(name),
-      subtitle: Text(description),
-      onTap: () async {
-        xlog('-----\n$name: $description\n-----');
-        await Navigator.of(context).push(
-          MaterialPageRoute(builder: pageWhenTap),
-        );
-      },
+      subtitle: MarkdownBody(
+        data: description,
+        selectable: true,
+        onTapText: () async => _onTap(context),
+      ),
+      onTap: () async => _onTap(context),
       trailing: const Icon(Icons.chevron_right_rounded),
+    );
+  }
+
+  Future<void> _onTap(BuildContext context) async {
+    xlog('-----\n$name: $description\n-----');
+    await Navigator.of(context).push(
+      MaterialPageRoute(builder: pageWhenTap),
     );
   }
 }
