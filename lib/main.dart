@@ -56,27 +56,32 @@ class HomePage extends StatelessWidget {
         children: [
           _VariationTile(
             name: 'Variation1',
-            description: 'Описание этой архитектуры',
+            description:
+                '`AutoDisposeNotifier` + `SettingsModel`. Reactive state update and wiretap attachment using `Watcher.attach`. The widget is updated using `Consumer` and calls `ref.watch` + `select` for spot updates.',
             pageWhenTap: (context) => const Variation1(),
           ),
           _VariationTile(
             name: 'Variation2',
-            description: 'Описание2',
+            description:
+                '`Settings` class with `late final` providers of type `Provider.autoDispose`. Reactive state update and wiretap attachment using `Watcher.attach`. Perhaps this method is presented purposefully and is an **anti-pattern**, although it works as expected. The widget is updated with `Consumer` and `ref.watch` calls.',
             pageWhenTap: (context) => const Variation2(),
           ),
           _VariationTile(
             name: 'Variation3',
-            description: 'Описание3',
+            description:
+                '`AutoDisposeNotifier` and split into two notifiers: `ThemeModeNotifier` and `ThemeColorNotifier`. Reactive state update and wiretap attachment using `Watcher.attach`. Preferred method because of the strict division of responsibilities. The widget is updated with `Consumer` and `ref.watch` calls.',
             pageWhenTap: (context) => const Variation3(),
           ),
           _VariationTile(
             name: 'Variation4',
-            description: 'Описание4',
+            description:
+                '`ChangeNotifier` with a mutable data update scheme using the `notifyListeners` call. Initial retrieval of data from storage using `AppStorage.get`, state update is imperative. Injecting notifier as an instance variable. The widget is updated with `ListenableBuilder`. There is no point update.',
             pageWhenTap: (context) => const Variation4(),
           ),
           _VariationTile(
             name: 'Variation5',
-            description: 'Описание5',
+            description:
+                '`ValueNotifier` and split into two notifiers: `ThemeModeNotifier` and `ThemeColorNotifier`. Initial retrieval of data from storage using `AppStorage.get`, state update is reactive in terms of `ValueNotifier`. Implement notifier as an instance variable + create a shared notifier using `Listenable.merge`. The widget can be updated point-by-point with `ValueListenableBuilder`.',
             pageWhenTap: (context) => const Variation5(),
           ),
         ],
