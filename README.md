@@ -2,6 +2,10 @@
 
 Sandbox for practicing non-contact combat skills in a reactive Domain layer.
 
+| ![](res/logs_view.png) | ![](res/main_screen.png) | ![](res/logs_view_dark.png) |
+|------------------------|--------------------------|-----------------------------|
+
+
 ## Getting Started
 
 The project presents different ways of organizing the domain layer. The prerequisites for realizing your example:
@@ -29,3 +33,13 @@ Guaranteed to work under Windows
 3. `AutoDisposeNotifier` and split into two notifiers: `ThemeModeNotifier` and `ThemeColorNotifier`. Reactive state update and wiretap attachment using `Watcher.attach`. Preferred method because of the strict division of responsibilities. The widget is updated with `Consumer` and `ref.watch` calls.
 4. `ChangeNotifier` with a mutable data update scheme using the `notifyListeners` call. Initial retrieval of data from storage using `AppStorage.get`, state update is imperative. Injecting notifier as an instance variable. The widget is updated with `ListenableBuilder`. There is no point update.
 5. `ValueNotifier` and split into two notifiers: `ThemeModeNotifier` and `ThemeColorNotifier`. Initial retrieval of data from storage using `AppStorage.get`, state update is reactive in terms of `ValueNotifier`. Implement notifier as an instance variable + create a shared notifier using `Listenable.merge`. The widget can be updated point-by-point with `ValueListenableBuilder`.
+
+## Author contact
+
+You can contact me or check out my activities on the following platforms:
+
+- [Telegram Group](https://t.me/+AkGV73kZi_Q1YTMy)
+- [StackOverflow](https://stackoverflow.com/users/17991131/ruble)
+- [Medium](https://medium.com/@pack.ruble)
+- [Habr](https://habr.com/ru/users/PackRuble/)
+- [Github](https://github.com/PackRuble)
