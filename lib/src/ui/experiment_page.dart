@@ -49,7 +49,7 @@ class ExperimentPage extends ConsumerWidget {
               final textTheme = theme.textTheme;
 
               return Scaffold(
-                backgroundColor: theme.colorScheme.inverseSurface,
+                backgroundColor: theme.colorScheme.background,
                 appBar: AppBar(
                   backgroundColor: theme.colorScheme.secondary,
                   foregroundColor: theme.colorScheme.onSecondary,
@@ -130,13 +130,13 @@ class _ListViewBodyState extends ConsumerState<ListViewBody> {
           leading: Text((index).toString()),
           title: Text(logs[index]),
           titleTextStyle: textTheme.bodySmall!.copyWith(
-            color: theme.colorScheme.onInverseSurface,
+            color: theme.colorScheme.onSurface,
           ),
           leadingAndTrailingTextStyle: textTheme.bodySmall!.copyWith(
-            color: theme.colorScheme.onInverseSurface,
+            color: theme.colorScheme.onSurface,
           ),
           tileColor: index > logNotifier.lastUpdatedIndex
-              ? theme.colorScheme.error
+              ? theme.colorScheme.errorContainer
               : null,
         );
 
