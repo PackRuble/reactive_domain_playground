@@ -2,7 +2,7 @@ import 'package:cardoteka/cardoteka.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_arch_app/src/domain/log_notifier.dart';
+import 'package:reactive_domain_playground/src/domain/log_notifier.dart';
 
 import 'src/domain/riverpod_logger.dart';
 import 'src/variations/variation1.dart';
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Architecture styles',
+      title: 'Reactive domain on Playground',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey),
@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        title: const Text('Architecture styles with Riverpod'),
+        title: const Text('Reactive domain Playground'),
       ),
       body: ListView(
         children: [

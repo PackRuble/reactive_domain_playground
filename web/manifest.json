@@ -1,6 +1,6 @@
 {
-    "name": "riverpod_arch_app",
-    "short_name": "riverpod_arch_app",
+    "name": "reactive_domain_playground",
+    "short_name": "reactive_domain_playground",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

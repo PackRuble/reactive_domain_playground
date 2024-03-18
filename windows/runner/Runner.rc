@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "riverpod_arch_app" "\0"
+            VALUE "FileDescription", "reactive_domain_playground" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "riverpod_arch_app" "\0"
+            VALUE "InternalName", "reactive_domain_playground" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "riverpod_arch_app.exe" "\0"
-            VALUE "ProductName", "riverpod_arch_app" "\0"
+            VALUE "OriginalFilename", "reactive_domain_playground.exe" "\0"
+            VALUE "ProductName", "reactive_domain_playground" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

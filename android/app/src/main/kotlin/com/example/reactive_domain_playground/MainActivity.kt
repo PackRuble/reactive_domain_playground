@@ -1,4 +1,4 @@
-package com.example.riverpod_arch_app
+package com.example.reactive_domain_playground
 
 import io.flutter.embedding.android.FlutterActivity
 

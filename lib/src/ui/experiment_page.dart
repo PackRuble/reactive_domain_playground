@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_arch_app/src/domain/log_notifier.dart';
+import 'package:reactive_domain_playground/src/domain/log_notifier.dart';
 
 import '../domain/app_storage.dart';
 

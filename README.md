@@ -1,4 +1,4 @@
-# riverpod_arch_app
+# reactive_domain_playground
 
 A new Flutter project.
 
